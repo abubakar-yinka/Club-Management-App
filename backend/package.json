@@ -1,0 +1,19 @@
+{
+  "name": "club-management-app",
+  "version": "1.0.0",
+  "description": "Full Stack Developer Challenge",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index",
+    "test": " "
+  },
+  "author": "Abubakar Ibrahim",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "pg": "^8.7.1",
+    "sequelize": "^6.6.5",
+    "sequelize-cli": "^6.2.0"
+  }
+}
