@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 // import axios from 'axios';
-import AuthService from '../../services/authService'
+// import AuthService from '../../services/authService';
+
+
+import { useDispatch } from "react-redux";
+import { login } from '../../store/actions/auth'
+
 import loginImage from '../../assets/images/login.svg';
 import './Auth.scss';
 
-const Login = () => {
+const Login = ({ history }) => {
+
+    const dispatch = useDispatch()
 
     const [email, setEmail] = useState('janedoe@gmail.com')
     const [password, setPassword] = useState('1234')
@@ -13,12 +20,17 @@ const Login = () => {
     const submitForm = e => {
         e.preventDefault()
 
-        AuthService.login({ email, password }).then(res => console.log(`Response: ${res}`))
+        dispatch(login({ email, password }, history))
+
+        // AuthService.login({ email, password }).then(res => console.log(`Response: ${JSON.stringify(res)}`))
+
         // axios.post('http://127.0.0.1:3000/login', { email, password})
-        //     .then(res => console.log('response:', res))
+        //     .then(res => {
+        //         dispatch(login(res.data, history))
+        //     })
         //     .catch(err => console.log('error:', err))
 
-        console.log({email, password})
+        // console.log({email, password})
     }
 
     return (

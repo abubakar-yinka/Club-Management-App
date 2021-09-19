@@ -1,8 +1,9 @@
 import API from './api';
 
+
 const AuthService = {
-    login: data => {
-        return API.post('/login', data)
+    login: async (data) => {
+        return await API.post('/login', data)
             .then(({ data }) => {
                 API.defaults.headers['Authorization'] = `Bearer ${data.token}`
                 return data
@@ -12,8 +13,17 @@ const AuthService = {
                 throw err
             })
     },
-    register: data => {
-
+    register: async (data) => {
+        return await API.post('/register', data)
+            .then(({ data }) => {
+                console.log(data)
+                API.defaults.headers['Authorization'] = `Bearer ${data.token}`
+                return data
+            })
+            .catch(err => {
+                console.log('Auth Service Error', err)
+                throw err
+            })
     },
     logout: () => {
 
