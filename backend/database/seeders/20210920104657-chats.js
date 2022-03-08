@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-const models = require('../../models')
-const User = models.User
-const Chat = models.Chat
-const ChatUser = models.ChatUser
-const Message = models.Message
+const models = require("../../models");
+const User = models.User;
+const Chat = models.Chat;
+const ChatUser = models.ChatUser;
+const Message = models.Message;
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -16,45 +16,45 @@ module.exports = {
      *   name: 'John Doe',
      *   isBetaMember: false
      * }], {});
-    */
+     */
 
-    const users = await User.findAll({ limit: 5 })
+    const users = await User.findAll({ limit: 5 });
 
-    const chat = await Chat.create()
+    const chat = await Chat.create();
 
     await ChatUser.bulkCreate([
       {
         clubId: chat.id,
-        userId: users[0].id
+        userId: users[0].id,
       },
       {
         clubId: chat.id,
-        userId: users[1].id
+        userId: users[1].id,
       },
-    ])
+    ]);
 
     await Message.bulkCreate([
       {
-        message: 'Hello',
+        message: "Hello",
         clubId: chat.id,
-        fromUserId: users[0].id
+        fromUserId: users[0].id,
       },
       {
-        message: 'Hiiii',
+        message: "Hiiii",
         clubId: chat.id,
-        fromUserId: users[1].id
+        fromUserId: users[1].id,
       },
       {
-        message: 'How are you doing?',
+        message: "How are you doing?",
         clubId: chat.id,
-        fromUserId: users[0].id
+        fromUserId: users[0].id,
       },
       {
-        message: 'Very well, what about you?',
+        message: "Very well, what about you?",
         clubId: chat.id,
-        fromUserId: users[1].id
+        fromUserId: users[1].id,
       },
-    ])
+    ]);
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -64,5 +64,5 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-  }
+  },
 };

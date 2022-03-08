@@ -1,10 +1,8 @@
-'use strict';
+"use strict";
 
-const config = require('../config/app')
+const config = require("../config/app");
 
-const {
-  Model
-} = require('sequelize');
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Message extends Model {
     /**
@@ -14,29 +12,32 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.Chat, {foreignKey: 'clubId'})
-      this.belongsTo(models.User, { foreignKey: 'fromUserId' })
+      this.belongsTo(models.Chat, { foreignKey: "clubId" });
+      this.belongsTo(models.User, { foreignKey: "fromUserId" });
     }
-  };
-  Message.init({
-    type: DataTypes.STRING,
-    message: {
-      type: DataTypes.TEXT,
-      get() {
-        const type = this.getDataValue('type')
-        const id = this.getDataValue('clubId')
-        const content = this.getDataValue('message')
+  }
+  Message.init(
+    {
+      type: DataTypes.STRING,
+      message: {
+        type: DataTypes.TEXT,
+        get() {
+          const type = this.getDataValue("type");
+          const id = this.getDataValue("clubId");
+          const content = this.getDataValue("message");
 
-        return type === 'text' 
-                ? content
-                : `${config.appUrl}:${config.appPort}/chat/${id}/${content}`
-      }
+          return type === "text"
+            ? content
+            : `${config.appUrl}:${config.appPort}/chat/${id}/${content}`;
+        },
+      },
+      clubId: DataTypes.INTEGER,
+      fromUserId: DataTypes.INTEGER,
     },
-    clubId: DataTypes.INTEGER,
-    fromUserId: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Message',
-  });
+    {
+      sequelize,
+      modelName: "Message",
+    }
+  );
   return Message;
 };
